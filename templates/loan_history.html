@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="pagetitle">
+    <h1>Loan Application History</h1>
+      <nav>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Home</a></li>
+              <li class="breadcrumb-item active">Loan History</li>
+          </ol>
+      </nav>
+  </div>
+  <!-- End Page Title -->
+<section class="section">
+    <div class="row">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% if "error" in messages[0] %}
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        {{messages[0]}}
+                    </div>
+                {% else %}
+                    <div class="alert alert-success" role="alert">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        {{messages[0]}}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endwith %}
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">History Summary</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Income</th>
+                                <th>Credit History</th>
+                                <th>Employment Status</th>
+                                <th>Debt To Income Ratio</th>
+                                <th>Credit Score</th>
+                                <th>Loan Amount</th>
+                                <th>Level Of Education</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in loan_applications %}
+                                <tr>
+                                    <td>{{ application.income }}</td>
+                                    <td>{{ application.credit_history }}</td>
+                                    <td>{{ application.employment_status }}</td>
+                                    <td>{{ application.debt_to_income_ratio }}</td>
+                                    <td>{{ application.credit_score }}</td>
+                                    <td>{{ application.loan_amount }}</td>
+                                    <td>{{ application.level_of_education }}</td>
+                                    <td>{{ application.status }}</td>
+                                    <td>{{ application.created_at }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
